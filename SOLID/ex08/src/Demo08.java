@@ -1,6 +1,7 @@
 public class Demo08 {
     public static void main(String[] args) {
         Pedalable v = new Bicycle();
-        v.startEngine(); // crash
+        v.pedal(10);
+        // v.startEngine(); // crash
     }
 }

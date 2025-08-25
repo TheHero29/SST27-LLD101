@@ -5,6 +5,6 @@ public class Demo05 {
     }
     public static void main(String[] args) {
         System.out.println(areaAfterResize(new Rectangle())); // 20
-        System.out.println(areaAfterResize(new Square()));    // compiletime error won't accept square where rectangle is needed
+        // System.out.println(areaAfterResize(new Square()));    // compiletime error won't accept square where rectangle is needed
     }
 }

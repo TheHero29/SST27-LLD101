@@ -1,5 +1,11 @@
+public class Square implements Shape {
+    int side;
 
-public class Square extends Rectangle {
-    @Override public void setWidth(int w){ this.w = this.h = w; }
-    @Override public void setHeight(int h){ this.w = this.h = h; }
+    void setSide(int side){
+        this.side=side;
+    }
+
+    public int area() {
+        return side * side;
+    }
 }

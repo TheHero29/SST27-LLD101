@@ -6,27 +6,31 @@ import java.nio.file.Path;
 import java.util.Properties;
 
 /**
- * FAULTY "Singleton": public constructor, getInstance() returns a NEW instance each time,
- * not thread-safe, reload allowed anytime, mutable global state, reflection+serialization-friendly.
+ * FAULTY "Singleton": reflection+serialization-friendly.
  */
 public class AppSettings implements Serializable {
-    private final Properties props = new Properties();
+    private static class PropsHolder {
+        private static Properties props = new Properties();
+    }
+    private static class AppsHolder {
+        private static AppSettings appSettings = new AppSettings();
+    }
 
-    public AppSettings() { } // should not be public for true singleton
+    private AppSettings() {}
 
     public static AppSettings getInstance() {
-        return new AppSettings(); // returns a fresh instance (bug)
+        return AppsHolder.appSettings;
     }
 
     public void loadFromFile(Path file) {
         try (InputStream in = Files.newInputStream(file)) {
-            props.load(in);
+            PropsHolder.props.load(in);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
     }
 
     public String get(String key) {
-        return props.getProperty(key);
+        return PropsHolder.props.getProperty(key);
     }
 }

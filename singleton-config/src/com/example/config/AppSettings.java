@@ -8,29 +8,24 @@ import java.util.Properties;
 /**
  * FAULTY "Singleton": reflection+serialization-friendly.
  */
-public class AppSettings implements Serializable {
-    private static class PropsHolder {
-        private static Properties props = new Properties();
-    }
-    private static class AppsHolder {
-        private static AppSettings appSettings = new AppSettings();
-    }
-
+public enum AppSettings {
+    APPSETTINGS;
+    private final Properties props = new Properties(); 
     private AppSettings() {}
 
     public static AppSettings getInstance() {
-        return AppsHolder.appSettings;
+        return APPSETTINGS;
     }
 
     public void loadFromFile(Path file) {
         try (InputStream in = Files.newInputStream(file)) {
-            PropsHolder.props.load(in);
+            props.load(in);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
     }
 
     public String get(String key) {
-        return PropsHolder.props.getProperty(key);
+        return props.getProperty(key);
     }
 }

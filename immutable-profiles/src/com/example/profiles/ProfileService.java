@@ -12,8 +12,10 @@ public class ProfileService {
         if (id == null || id.isBlank()) throw new IllegalArgumentException("bad id");
         if (email == null || !email.contains("@")) throw new IllegalArgumentException("bad email");
 
-        UserProfile p = new UserProfile(id, email, null, null, null, false, null, null);
-        // later code keeps mutating...
+        UserProfile p = new UserProfile.Builder()
+                .id(id)
+                .email(email)
+                .build();
         return p;
     }
 
@@ -24,7 +26,16 @@ public class ProfileService {
             // silently trim (inconsistent policy)
             displayName = displayName.substring(0, 100);
         }
-        return new UserProfile(p.getId(), p.getEmail(), p.getPhone(), displayName, p.getAddress(), p.isMarketingOptIn(), p.getTwitter(), p.getGithub());
+        return new UserProfile.Builder()
+                .id(p.getId())
+                .email(p.getEmail())
+                .phone(p.getPhone())
+                .displayName(displayName)
+                .address(p.getAddress())
+                .marketingOptIn(p.isMarketingOptIn())
+                .twitter(p.getTwitter())
+                .github(p.getGithub())
+                .build();
     }
 
 }

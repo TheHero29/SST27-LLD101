@@ -14,3 +14,8 @@ Build/Run (Starter demo)
   javac com/example/profiles/*.java TryIt.java
   java TryIt
 
+
+---------------------------------------------------
+solution - 
+removed all setters
+added a builder inner class instead of allArgsConstructor
